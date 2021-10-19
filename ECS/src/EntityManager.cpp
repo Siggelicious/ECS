@@ -12,9 +12,12 @@ Entity EntityManager::CreateEntity() {
 		destroyed_entities.pop();
 	}
 
+	signatures.insert(std::make_pair(entity, 0));
+
 	return entity;
 }
 
 void EntityManager::DestroyEntity(Entity entity) {
+	signatures.erase(entity);
 	destroyed_entities.push(entity);
 }

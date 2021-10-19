@@ -148,9 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\ComponentHandle.cpp" />
+    <ClCompile Include="src\ComponentManagerBase.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ComponentHandle.h" />
+    <ClInclude Include="include\ComponentManagerBase.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
   </ItemGroup>

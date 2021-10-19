@@ -1,11 +1,21 @@
 #include <iostream>
+#include <ComponentManagerBase.h>
+#include <ComponentHandle.h>
+
+struct Position {
+	float x, y;
+};
+
+class ComponentManager : public ComponentManagerBase {
+private:
+	ComponentHandle* position_component;
+public:
+	ComponentManager() {
+		position_component = RegisterComponent<Position>();
+	}
+};
 
 int main() {
-	int arr[2] = { 3, 5 };
-	
-	auto [a, b] = arr;
-
-	std::cout << a << b << std::endl;
 
 	return 0;
 }
