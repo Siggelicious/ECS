@@ -148,14 +148,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\AComponentArray.cpp" />
     <ClCompile Include="src\AComponentHandle.cpp" />
     <ClCompile Include="src\ComponentHandle.cpp" />
     <ClCompile Include="src\ComponentManagerBase.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\AComponentArray.h" />
     <ClInclude Include="include\AComponentHandle.h" />
     <ClInclude Include="include\ComponentHandle.h" />
     <ClInclude Include="include\ComponentManagerBase.h" />
