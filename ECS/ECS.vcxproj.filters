@@ -24,10 +24,13 @@
     <ClCompile Include="src\ComponentManagerBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ComponentHandle.cpp">
+    <ClCompile Include="src\AComponentHandle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AComponentArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComponentHandle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,10 +44,13 @@
     <ClInclude Include="include\ComponentManagerBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ComponentHandle.h">
+    <ClInclude Include="include\AComponentHandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\AComponentArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ComponentHandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

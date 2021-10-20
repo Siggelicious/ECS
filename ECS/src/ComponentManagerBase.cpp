@@ -1,7 +1,8 @@
 #include <ComponentManagerBase.h>
 
-ComponentHandle* ComponentManagerBase::RegisterComponent() {
-	ComponentHandle* component_handle = new ComponentHandle(num_components++);
+template<typename T>
+ComponentHandle<T>* ComponentManagerBase::RegisterComponent() {
+	ComponentHandle<T>* component_handle = new ComponentHandle<T>(num_components++);
 	component_handles.push_back(component_handle);
 	return component_handle;
 }

@@ -6,14 +6,14 @@ struct Position {
 	float x, y;
 };
 
-class ComponentManager : public ComponentManagerBase {
+/*class ComponentManager : public ComponentManagerBase {
 private:
 	ComponentHandle* position_component;
 public:
 	ComponentManager() {
 		position_component = RegisterComponent<Position>();
 	}
-};
+};*/
 
 int main() {
 

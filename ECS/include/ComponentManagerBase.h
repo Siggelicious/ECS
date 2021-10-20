@@ -6,9 +6,10 @@
 class ComponentManagerBase {
 private:
 	uint32_t num_components;
-	std::vector<ComponentHandle*> component_handles;
+	std::vector<AComponentHandle*> component_handles;
 public:
-	ComponentHandle* RegisterComponent();
+	template<typename T>
+	ComponentHandle<T>* RegisterComponent();
 
 	virtual ~ComponentManagerBase();
 };

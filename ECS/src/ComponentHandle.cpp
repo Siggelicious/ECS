@@ -1,5 +1,6 @@
 #include <ComponentHandle.h>
 
-ComponentHandle::ComponentHandle(uint32_t index) {
+template<typename T>
+ComponentHandle<T>::ComponentHandle(uint32_t index) {
 	this->index = index;
 }

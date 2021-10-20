@@ -1,7 +1,9 @@
 #pragma once
+#include <AComponentHandle.h>
 #include <cstdint>
 
-class ComponentHandle {
+template<typename T>
+class ComponentHandle : public AComponentHandle {
 private:
 	uint32_t index;
 public:
