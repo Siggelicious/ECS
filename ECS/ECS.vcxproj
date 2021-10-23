@@ -150,15 +150,17 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\AComponentHandle.cpp" />
     <ClCompile Include="src\ComponentHandle.cpp" />
-    <ClCompile Include="src\ComponentManagerBase.cpp" />
+    <ClCompile Include="src\ComponentManager.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
+    <ClCompile Include="src\Registry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AComponentHandle.h" />
     <ClInclude Include="include\ComponentHandle.h" />
-    <ClInclude Include="include\ComponentManagerBase.h" />
+    <ClInclude Include="include\ComponentManager.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
+    <ClInclude Include="include\Registry.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,21 +1,30 @@
 #include <iostream>
-#include <ComponentManagerBase.h>
+#include <ComponentManager.h>
 #include <ComponentHandle.h>
+#include <AComponentHandle.h>
+#include <EntityManager.h>
+#include <Registry.h>
 
 struct Position {
 	float x, y;
 };
 
-/*class ComponentManager : public ComponentManagerBase {
-private:
-	ComponentHandle* position_component;
-public:
-	ComponentManager() {
-		position_component = RegisterComponent<Position>();
-	}
-};*/
+
+void TestEverything() {
+	Registry registry;
+
+	registry.RegisterComponent<Position>();
+	Entity entity = registry.CreateEntity();
+	registry.AddComponent<Position>(entity);
+	registry.GetComponent<Position>(entity);
+	registry.RemoveComponent<Position>(entity);
+	registry.GetComponent<Position>(entity);
+}
 
 int main() {
+
+
+	TestEverything();
 
 	return 0;
 }

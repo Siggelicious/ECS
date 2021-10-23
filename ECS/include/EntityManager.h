@@ -5,10 +5,11 @@
 
 class EntityManager {
 private:
-	Entity last_entity = 0;
+	Entity last_entity;
 	std::queue<Entity> destroyed_entities;
 	std::map<Entity, Signature> signatures;
 public:
+	EntityManager();
 	Entity CreateEntity();
 	void DestroyEntity(Entity entity);
 };

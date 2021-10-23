@@ -1,5 +1,9 @@
 #include <EntityManager.h>
 
+EntityManager::EntityManager() {
+	last_entity = 0;
+}
+
 Entity EntityManager::CreateEntity() {
 	Entity entity;
 	
