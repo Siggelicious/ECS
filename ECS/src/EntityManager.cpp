@@ -16,7 +16,7 @@ Entity EntityManager::CreateEntity() {
 		destroyed_entities.pop();
 	}
 
-	signatures.insert(std::make_pair(entity, 0));
+	signatures.insert(std::make_pair(entity, Signature()));
 
 	return entity;
 }
@@ -24,4 +24,12 @@ Entity EntityManager::CreateEntity() {
 void EntityManager::DestroyEntity(Entity entity) {
 	signatures.erase(entity);
 	destroyed_entities.push(entity);
+}
+
+void EntityManager::SetSignature(Entity entity, ComponentId component_id, bool value) {
+	signatures[entity].set(component_id, value);
+}
+
+Signature EntityManager::GetSignature(Entity entity) {
+	return signatures[entity];
 }

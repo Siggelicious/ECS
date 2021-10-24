@@ -1,32 +1,29 @@
 #pragma once
-#include <Entity.h>
 #include <vector>
 #include <ComponentHandle.h>
 #include <unordered_map>
-#include <iostream>
+
 
 class ComponentManager {
 private:
 	ComponentId last_id;
 	std::unordered_map<ComponentId, AComponentHandle*> component_handles;
-	
+public:
+	ComponentManager();
+	~ComponentManager();
+	void EntityDestroyed(Entity entity);
+
 	template<typename T>
 	ComponentId GetComponentId();
 
 	template<typename T>
 	ComponentHandle<T>* GetComponentHandle(ComponentId component_id);
 
-	bool IsRegistered(ComponentId component_id);
-public:
-	ComponentManager();
-	virtual ~ComponentManager();
-	void EntityDestroyed(Entity entity);
-
 	template<typename T>
 	void RegisterComponent();
 
-	template<typename T>
-	void AddComponent(Entity entity);
+	template<typename T, typename ... Args>
+	void AddComponent(Entity entity, Args&& ... args);
 
 	template<typename T>
 	void RemoveComponent(Entity entity);
@@ -42,48 +39,32 @@ ComponentId ComponentManager::GetComponentId() {
 }
 
 template<typename T>
-ComponentHandle<T>* ComponentManager::GetComponentHandle(ComponentId component_id) {
+inline ComponentHandle<T>* ComponentManager::GetComponentHandle(ComponentId component_id) {
 	return reinterpret_cast<ComponentHandle<T>*>(component_handles[component_id]);
 }
 
 template<typename T>
 void ComponentManager::RegisterComponent() {
-	ComponentId component_id = GetComponentId<T>();
-
-	if (!IsRegistered(component_id)) {
-		ComponentHandle<T>* component_handle = new ComponentHandle<T>(component_id);
-		component_handles.insert(std::make_pair(component_id, component_handle));
-	}
+	component_handles.insert(std::make_pair(GetComponentId<T>(), new ComponentHandle<T>()));
 }
 
-template<typename T>
-void ComponentManager::AddComponent(Entity entity) {
+template<typename T, typename ... Args>
+void ComponentManager::AddComponent(Entity entity, Args&& ... args) {
 	ComponentId component_id = GetComponentId<T>();
-
-	if (IsRegistered(component_id)) {
-		ComponentHandle<T>* component_handle = GetComponentHandle<T>(component_id);
-		component_handle->AddComponent(entity);
-	}
+	ComponentHandle<T>* component_handle = GetComponentHandle<T>(component_id);
+	component_handle->AddComponent(entity, std::forward<decltype(args)>(args) ...);
 }
 
 template<typename T>
 void ComponentManager::RemoveComponent(Entity entity) {
 	ComponentId component_id = GetComponentId<T>();
-
-	if (IsRegistered(component_id)) {
-		ComponentHandle<T>* component_handle = GetComponentHandle<T>(component_id);
-		component_handle->RemoveComponent(entity);
-	}
+	ComponentHandle<T>* component_handle = GetComponentHandle<T>(component_id);
+	component_handle->RemoveComponent(entity);
 }
 
 template<typename T>
 T* ComponentManager::GetComponent(Entity entity) {
 	ComponentId component_id = GetComponentId<T>();
-
-	if (IsRegistered(component_id)) {
-		ComponentHandle<T>* component_handle = GetComponentHandle<T>(component_id);
-		return component_handle->GetComponent(entity);
-	}
-
-	return nullptr;
+	ComponentHandle<T>* component_handle = GetComponentHandle<T>(component_id);
+	return component_handle->GetComponent(entity);
 }
