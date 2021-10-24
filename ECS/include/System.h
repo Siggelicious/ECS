@@ -6,6 +6,7 @@
 
 class System {
 private:
+	size_t num_entities;
 	Signature signature;
 	std::unordered_map<Entity, size_t> entity_to_index;
 	
@@ -13,6 +14,7 @@ private:
 	void RemoveEntity(Entity entity);
 public:
 	std::vector<Entity> entities;
+	System();
 	virtual ~System() = default;
 	virtual void Update() = 0;
 	void EntityDestroyed(Entity entity);

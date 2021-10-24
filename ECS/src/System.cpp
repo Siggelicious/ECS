@@ -1,9 +1,14 @@
 #include <System.h>
 #include <algorithm>
 
+System::System() {
+	num_entities = 0;
+}
+
 void System::AddEntity(Entity entity) {
-	entity_to_index.insert(std::make_pair(entity, entities.size()));
 	entities.push_back(entity);
+	entity_to_index.insert(std::make_pair(entity, num_entities));
+	num_entities++;
 }
 
 void System::RemoveEntity(Entity entity) {
@@ -17,6 +22,7 @@ void System::RemoveEntity(Entity entity) {
 
 	entities.erase(entities.begin() + index);
 	entity_to_index.erase(entity);
+	num_entities--;
 }
 
 void System::EntityDestroyed(Entity entity) {

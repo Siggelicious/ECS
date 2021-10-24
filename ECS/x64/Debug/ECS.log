@@ -1,8 +1,0 @@
-﻿  main.cpp
-  ComponentManager.cpp
-  Registry.cpp
-  Generating Code...
-  LINK : C:\Users\sigge\source\repos\ECS\x64\Debug\ECS.exe not found or not built by the last incremental link; performing full link
-ComponentManager.obj : error LNK2005: "private: bool __cdecl ComponentManager::IsRegistered(unsigned int)" (?IsRegistered@ComponentManager@@AEAA_NI@Z) already defined in main.obj
-Registry.obj : error LNK2005: "private: bool __cdecl ComponentManager::IsRegistered(unsigned int)" (?IsRegistered@ComponentManager@@AEAA_NI@Z) already defined in main.obj
-C:\Users\sigge\source\repos\ECS\x64\Debug\ECS.exe : fatal error LNK1169: one or more multiply defined symbols found
