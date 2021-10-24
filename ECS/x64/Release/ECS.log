@@ -1,6 +1,7 @@
-﻿  ComponentManager.cpp
-  EntityManager.cpp
-  Registry.cpp
-  System.cpp
-  SystemManager.cpp
-  ECS.vcxproj -> C:\Users\sigge\source\repos\ECS\x64\Release\ECS.lib
+﻿  main.cpp
+  Generating code
+  298 of 852 functions (35.0%) were compiled, the rest were copied from previous compilation.
+    7 functions were new in current compilation
+    78 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  ECS.vcxproj -> C:\Users\sigge\source\repos\ECS\x64\Release\ECS.exe

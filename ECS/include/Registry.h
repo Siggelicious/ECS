@@ -34,7 +34,7 @@ public:
 	void RegisterSystem();
 
 	template<typename T>
-	void Update();
+	void Update(float dt);
 };
 
 template<typename ... Args>
@@ -74,6 +74,6 @@ void Registry::RegisterSystem() {
 }
 
 template<typename T>
-void Registry::Update() {
-	system_manager->Update<T>();
+void Registry::Update(float dt) {
+	system_manager->Update<T>(this, dt);
 }

@@ -2,6 +2,8 @@
 #include <System.h>
 #include <unordered_map>
 
+class Registry;
+
 class SystemManager {
 private:
 	SystemId last_id;
@@ -20,7 +22,7 @@ public:
 	void EntitySignatureChanged(Entity entity, Signature entity_signature);
 
 	template<typename T>
-	void Update();
+	void Update(Registry* registry, float dt);
 };
 
 template<typename T>
@@ -37,6 +39,6 @@ void SystemManager::RegisterSystem(Signature signature) {
 }
 
 template<typename T>
-void SystemManager::Update() {
-	systems[GetSystemId<T>()]->Update();
+void SystemManager::Update(Registry* registry, float dt) {
+	systems[GetSystemId<T>()]->Update(registry, dt);
 }

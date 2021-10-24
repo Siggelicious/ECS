@@ -4,6 +4,8 @@
 #include <unordered_set>
 #include <unordered_map>
 
+class Registry;
+
 class System {
 private:
 	size_t num_entities;
@@ -16,7 +18,7 @@ public:
 	std::vector<Entity> entities;
 	System();
 	virtual ~System() = default;
-	virtual void Update() = 0;
+	virtual void Update(Registry* registry, float dt) = 0;
 	void EntityDestroyed(Entity entity);
 	void SetSignature(Signature signature);
 	void EntitySignatureChanged(Entity entity, Signature entity_signature);
