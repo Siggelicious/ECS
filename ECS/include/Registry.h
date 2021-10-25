@@ -53,14 +53,14 @@ template<typename T, typename ... Args>
 void Registry::AddComponent(Entity entity, Args&& ... args) {
 	component_manager->AddComponent<T>(entity, std::forward<decltype(args)>(args) ...);
 	entity_manager->SetSignature(entity, component_manager->GetComponentId<T>(), true);
-	system_manager->EntitySignatureChanged(entity, entity_manager->GetSignature(entity));
+	system_manager->ComponentAdded(entity, entity_manager->GetSignature(entity));
 }
 
 template<typename T>
 void Registry::RemoveComponent(Entity entity) {
 	component_manager->RemoveComponent<T>(entity);
 	entity_manager->SetSignature(entity, component_manager->GetComponentId<T>(), false);
-	system_manager->EntitySignatureChanged(entity, entity_manager->GetSignature(entity));
+	system_manager->ComponentRemoved(entity, entity_manager->GetSignature(entity));
 }
 
 template<typename T>

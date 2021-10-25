@@ -8,12 +8,7 @@ class Registry;
 
 class System {
 private:
-	size_t num_entities;
 	Signature signature;
-	std::unordered_map<Entity, size_t> entity_to_index;
-	
-	void AddEntity(Entity entity);
-	void RemoveEntity(Entity entity);
 public:
 	std::vector<Entity> entities;
 	System();
@@ -21,5 +16,6 @@ public:
 	virtual void Update(Registry* registry, float dt) = 0;
 	void EntityDestroyed(Entity entity);
 	void SetSignature(Signature signature);
-	void EntitySignatureChanged(Entity entity, Signature entity_signature);
+	void ComponentAdded(Entity entity, Signature entity_signature);
+	void ComponentRemoved(Entity entity, Signature entity_signature);
 };

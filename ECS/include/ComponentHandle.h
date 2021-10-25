@@ -7,9 +7,7 @@
 template<typename T>
 class ComponentHandle : public AComponentHandle {
 private:
-	size_t num_components;
-	std::vector<T> components;
-	std::unordered_map<Entity, size_t> entity_to_index;
+	std::vector<std::pair<Entity, T>> components;
 public:
 	ComponentHandle();
 	~ComponentHandle();
@@ -22,7 +20,7 @@ public:
 
 template<typename T>
 ComponentHandle<T>::ComponentHandle() {
-	num_components = 0;
+
 }
 
 template<typename T>
@@ -33,30 +31,38 @@ ComponentHandle<T>::~ComponentHandle() {
 template<typename T>
 template<typename ... Args>
 void ComponentHandle<T>::AddComponent(Entity entity, Args&& ... args) {
-	components.emplace_back(std::forward<decltype(args)>(args) ...);
-	entity_to_index.insert(std::make_pair(entity, num_components));
-	num_components++;
+	auto it = std::lower_bound(components.begin(), components.end(), entity, [](const auto& a, const auto& b) {
+		return (a.first < b);
+	});
+
+	components.emplace(it, entity, T(std::forward<decltype(args)>(args) ...));
 }
 
 template<typename T>
 void ComponentHandle<T>::RemoveComponent(Entity entity) {
-	size_t index = entity_to_index[entity];
+	auto it = std::lower_bound(components.begin(), components.end(), entity, [](const auto& a, const auto& b) {
+		return (a.first < b);
+	});
 
-	for (auto& pair : entity_to_index) {
-		if (pair.second > index) {
-			pair.second--;
-		}
-	}
-
-	components.erase(components.begin() + index);
-	entity_to_index.erase(entity);
-	num_components--;
+	components.erase(it);
 }
 
 
 template<typename T>
 T* ComponentHandle<T>::GetComponent(Entity entity) {
-	return &components[entity_to_index[entity]];
+	static size_t last_index = 0;
+
+	if (entity < components[last_index].first)
+		last_index = 0;
+
+	for (size_t i = last_index; i < components.size(); i++) {
+		if (entity == components[i].first) {
+			last_index = i + 1;
+			return &components[i].second;
+		}
+	}
+
+	return nullptr;
 }
 
 template<typename T>

@@ -16,7 +16,7 @@ Entity EntityManager::CreateEntity() {
 		destroyed_entities.pop();
 	}
 
-	signatures.insert(std::make_pair(entity, Signature()));
+	signatures.emplace(entity, Signature());
 
 	return entity;
 }

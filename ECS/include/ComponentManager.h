@@ -45,7 +45,7 @@ inline ComponentHandle<T>* ComponentManager::GetComponentHandle(ComponentId comp
 
 template<typename T>
 void ComponentManager::RegisterComponent() {
-	component_handles.insert(std::make_pair(GetComponentId<T>(), new ComponentHandle<T>()));
+	component_handles.emplace(GetComponentId<T>(), new ComponentHandle<T>());
 }
 
 template<typename T, typename ... Args>

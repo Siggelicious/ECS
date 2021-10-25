@@ -16,8 +16,14 @@ void SystemManager::EnityDestroyed(Entity entity) {
 	}
 }
 
-void SystemManager::EntitySignatureChanged(Entity entity, Signature entity_signature) {
+void SystemManager::ComponentAdded(Entity entity, Signature entity_signature) {
 	for (const auto& pair : systems) {
-		pair.second->EntitySignatureChanged(entity, entity_signature);
+		pair.second->ComponentAdded(entity, entity_signature);
+	}
+}
+
+void SystemManager::ComponentRemoved(Entity entity, Signature entity_signature) {
+	for (const auto& pair : systems) {
+		pair.second->ComponentRemoved(entity, entity_signature);
 	}
 }

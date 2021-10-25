@@ -19,7 +19,8 @@ public:
 	template<typename T>
 	void RegisterSystem(Signature signature);
 
-	void EntitySignatureChanged(Entity entity, Signature entity_signature);
+	void ComponentAdded(Entity entity, Signature entity_signature);
+	void ComponentRemoved(Entity entity, Signature entity_signature);
 
 	template<typename T>
 	void Update(Registry* registry, float dt);
@@ -33,9 +34,9 @@ SystemId SystemManager::GetSystemId() {
 
 template<typename T>
 void SystemManager::RegisterSystem(Signature signature) {
-	System* system = new T();
-	systems.insert(std::make_pair(GetSystemId<T>(), system));
+	T* system = new T();
 	system->SetSignature(signature);
+	systems.insert(std::make_pair(GetSystemId<T>(), system));
 }
 
 template<typename T>
