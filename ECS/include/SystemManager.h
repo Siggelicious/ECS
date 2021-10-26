@@ -8,6 +8,9 @@ class SystemManager {
 private:
 	SystemId last_id;
 	std::unordered_map<SystemId, System*> systems;
+
+	template<typename T>
+	T* GetSystem();
 public:
 	SystemManager();
 	~SystemManager();
@@ -22,9 +25,14 @@ public:
 	void ComponentAdded(Entity entity, Signature entity_signature);
 	void ComponentRemoved(Entity entity, Signature entity_signature);
 
-	template<typename T>
-	void Update(Registry* registry, float dt);
+	template<typename T, typename ... Args>
+	void Update(Args&& ... args);
 };
+
+template<typename T>
+inline T* SystemManager::GetSystem() {
+	return reinterpret_cast<T*>(systems[GetSystemId<T>()]);
+}
 
 template<typename T>
 SystemId SystemManager::GetSystemId() {
@@ -39,7 +47,7 @@ void SystemManager::RegisterSystem(Signature signature) {
 	systems.insert(std::make_pair(GetSystemId<T>(), system));
 }
 
-template<typename T>
-void SystemManager::Update(Registry* registry, float dt) {
-	systems[GetSystemId<T>()]->Update(registry, dt);
+template<typename T, typename ... Args>
+void SystemManager::Update(Args&& ... args) {
+	GetSystem<T>()->Update(std::forward<decltype(args)>(args) ...);
 }

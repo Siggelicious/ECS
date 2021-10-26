@@ -30,11 +30,14 @@ public:
 	template<typename T>
 	T* GetComponent(Entity entity);
 
+	template<typename T>
+	T* GetSingleComponent(Entity entity);
+
 	template<typename T, typename ... Args>
 	void RegisterSystem();
 
-	template<typename T>
-	void Update(float dt);
+	template<typename T, typename ... Args>
+	void Update(Args&& ... args);
 };
 
 template<typename ... Args>
@@ -73,7 +76,12 @@ void Registry::RegisterSystem() {
 	system_manager->RegisterSystem<T>(CreateSystemSignature<Args ...>());
 }
 
+template<typename T, typename ... Args>
+void Registry::Update(Args&& ... args) {
+	system_manager->Update<T>(std::forward<decltype(args)>(args) ...);
+}
+
 template<typename T>
-void Registry::Update(float dt) {
-	system_manager->Update<T>(this, dt);
+T* Registry::GetSingleComponent(Entity entity) {
+	return component_manager->GetSingleComponent<T>(entity);
 }

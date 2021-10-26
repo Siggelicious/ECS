@@ -13,7 +13,6 @@ public:
 	std::vector<Entity> entities;
 	System();
 	virtual ~System() = default;
-	virtual void Update(Registry* registry, float dt) = 0;
 	void EntityDestroyed(Entity entity);
 	void SetSignature(Signature signature);
 	void ComponentAdded(Entity entity, Signature entity_signature);

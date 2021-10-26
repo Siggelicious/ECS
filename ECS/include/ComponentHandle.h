@@ -15,6 +15,7 @@ public:
 	void AddComponent(Entity entity, Args&& ... args);
 	void RemoveComponent(Entity entity);
 	T* GetComponent(Entity entity);
+	T* GetSingleComponent(Entity entity);
 	void EntityDestroyed(Entity entity) override;
 };
 
@@ -65,6 +66,16 @@ T* ComponentHandle<T>::GetComponent(Entity entity) {
 
 	return nullptr;
 }
+
+template<typename T>
+T* ComponentHandle<T>::GetSingleComponent(Entity entity) {
+	auto it = std::lower_bound(components.begin(), components.end(), entity, [](const auto& a, const auto& b) {
+		return (a.first < b);
+	});
+
+	return &it->second;
+}
+
 
 template<typename T>
 void ComponentHandle<T>::EntityDestroyed(Entity entity) {

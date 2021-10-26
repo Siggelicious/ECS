@@ -8,6 +8,9 @@ class ComponentManager {
 private:
 	ComponentId last_id;
 	std::unordered_map<ComponentId, AComponentHandle*> component_handles;
+
+	template<typename T>
+	ComponentHandle<T>* GetComponentHandle(ComponentId component_id);
 public:
 	ComponentManager();
 	~ComponentManager();
@@ -15,9 +18,6 @@ public:
 
 	template<typename T>
 	ComponentId GetComponentId();
-
-	template<typename T>
-	ComponentHandle<T>* GetComponentHandle(ComponentId component_id);
 
 	template<typename T>
 	void RegisterComponent();
@@ -30,6 +30,9 @@ public:
 
 	template<typename T>
 	T* GetComponent(Entity entity);
+
+	template<typename T>
+	T* GetSingleComponent(Entity entity);
 };
 
 template<typename T>
@@ -67,4 +70,11 @@ T* ComponentManager::GetComponent(Entity entity) {
 	ComponentId component_id = GetComponentId<T>();
 	ComponentHandle<T>* component_handle = GetComponentHandle<T>(component_id);
 	return component_handle->GetComponent(entity);
+}
+
+template<typename T>
+T* ComponentManager::GetSingleComponent(Entity entity) {
+	ComponentId component_id = GetComponentId<T>();
+	ComponentHandle<T>* component_handle = GetComponentHandle<T>(component_id);
+	return component_handle->GetSingleComponent(entity);
 }
