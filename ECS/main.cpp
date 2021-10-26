@@ -1,4 +1,4 @@
-#include <Registry.h>
+/*#include <Registry.h>
 #include <iostream>
 
 class Position {
@@ -15,8 +15,7 @@ class RenderSystem : public System {
 public:
 	void Update(Registry* registry, float dt) override {
 		for (auto entity : entities) {
-			std::cout << registry->GetComponent<Position>(entity)->x << std::endl;
-			std::cout << registry->GetComponent<Position>(entity)->y << std::endl;
+			Auto pos = registry->GetComponent<Position>(entity);
 		}
 	}
 };
@@ -34,4 +33,4 @@ void Game() {
 
 int main() {
 	Game();
-}
+}*/

@@ -52,12 +52,13 @@ template<typename T>
 T* ComponentHandle<T>::GetComponent(Entity entity) {
 	static size_t last_index = 0;
 
-	if (entity < components[last_index].first)
+	if (last_index >= components.size() || entity < components[last_index].first)
 		last_index = 0;
 
 	for (size_t i = last_index; i < components.size(); i++) {
 		if (entity == components[i].first) {
 			last_index = i + 1;
+
 			return &components[i].second;
 		}
 	}

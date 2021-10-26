@@ -19,8 +19,10 @@ void System::SetSignature(Signature signature) {
 
 void System::ComponentAdded(Entity entity, Signature entity_signature) {
 	if ((entity_signature & signature) == signature) {
-		if (!std::binary_search(entities.begin(), entities.end(), entity)) {
-			entities.insert(std::lower_bound(entities.begin(), entities.end(), entity), entity);
+		auto it = std::lower_bound(entities.begin(), entities.end(), entity);
+
+		if (it == entities.end() || *it != entity) {
+			entities.insert(it, entity);
 		}
 	}
 }

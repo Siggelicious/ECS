@@ -1,8 +1,3 @@
 ﻿  main.cpp
-  ComponentManager.cpp
-  Registry.cpp
-  Generating code
-  Previous IPDB and IOBJ mismatch, fall back to full compilation.
-  All 741 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  ECS.vcxproj -> C:\Users\sigge\source\repos\ECS\x64\Release\ECS.exe
+  System.cpp
+  ECS.vcxproj -> C:\Users\sigge\source\repos\ECS\x64\Release\ECS.lib
