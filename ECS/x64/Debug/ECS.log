@@ -1,2 +1,6 @@
-﻿  System.cpp
+﻿  ComponentManager.cpp
+  Registry.cpp
+  System.cpp
+  SystemManager.cpp
+  Generating Code...
   ECS.vcxproj -> C:\Users\sigge\source\repos\ECS\x64\Debug\ECS.lib

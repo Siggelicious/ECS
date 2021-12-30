@@ -21,9 +21,8 @@ Entity Registry::CreateEntity() {
 }
 
 void Registry::DestroyEntity(Entity entity) {
-	Signature entity_signature = m_entity_manager->GetSignature(entity);
-	m_component_manager->EntityDestroyed(entity, entity_signature);
-	m_system_manager->EnityDestroyed(entity, entity_signature);
+	m_component_manager->EntityDestroyed(entity, m_entity_manager->GetSignature(entity));
+	m_system_manager->EnityDestroyed(entity);
 	m_entity_manager->DestroyEntity(entity);
 }
 

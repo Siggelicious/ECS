@@ -10,9 +10,9 @@ SystemManager::~SystemManager() {
 	}
 }
 
-void SystemManager::EnityDestroyed(Entity entity, Signature entity_signature) {
+void SystemManager::EnityDestroyed(Entity entity) {
 	for (const auto& pair : m_systems) {
-		pair.second->EntityDestroyed(entity, entity_signature);
+		pair.second->EntityDestroyed(entity);
 	}
 }
 

@@ -14,7 +14,7 @@ private:
 public:
 	SystemManager();
 	~SystemManager();
-	void EnityDestroyed(Entity entity, Signature entity_signature);
+	void EnityDestroyed(Entity entity);
 
 	template<typename T>
 	SystemId GetSystemId();

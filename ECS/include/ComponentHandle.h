@@ -32,13 +32,13 @@ inline std::pair<Entity, T>* ComponentHandle<T>::End() {
 template<typename T>
 inline std::pair<Entity, T>* ComponentHandle<T>::LowerBound(Entity entity) {
 	std::pair<Entity, T>* end = End();
-	
+
 	if (end == nullptr)
 		return m_components;
 
 	std::pair<Entity, T>* pos = std::lower_bound(m_components, end, entity, [](const auto& a, const auto& b) {
 		return (a.first < b);
-	});
+		});
 
 	return pos;
 }
@@ -65,7 +65,7 @@ void ComponentHandle<T>::AddComponent(Entity entity, Args&& ... args) {
 	auto it = std::lower_bound(m_components.begin(), m_components.end(), entity, [](const auto& a, const auto& b) {
 		return (a.first < b);
 	});
-	
+
 
 	m_components.emplace(it, entity, T(std::forward<decltype(args)>(args) ...));
 	*/
@@ -136,7 +136,7 @@ T* ComponentHandle<T>::GetComponent(Entity entity) {
 		}
 	}
 
-	return nullptr; 
+	return nullptr;
 	*/
 
 	static size_t last_index = 0;
