@@ -1,23 +1,32 @@
 #include <Registry.h>
 
 Registry::Registry() {
-	entity_manager = new EntityManager();
-	component_manager = new ComponentManager();
-	system_manager = new SystemManager();
+	m_entity_manager = new EntityManager();
+	m_component_manager = new ComponentManager();
+	m_system_manager = new SystemManager();
+}
+
+Registry::Registry(uint32_t alloc_chunk_size) : Registry() {
+	SetAllocationChunkSize(alloc_chunk_size);
 }
 
 Registry::~Registry() {
-	delete entity_manager;
-	delete component_manager;
-	delete system_manager;
+	delete m_entity_manager;
+	delete m_component_manager;
+	delete m_system_manager;
 }
 
 Entity Registry::CreateEntity() {
-	return entity_manager->CreateEntity();
+	return m_entity_manager->CreateEntity();
 }
 
 void Registry::DestroyEntity(Entity entity) {
-	entity_manager->DestroyEntity(entity);
-	component_manager->EntityDestroyed(entity);
-	system_manager->EnityDestroyed(entity);
+	Signature entity_signature = m_entity_manager->GetSignature(entity);
+	m_component_manager->EntityDestroyed(entity, entity_signature);
+	m_system_manager->EnityDestroyed(entity, entity_signature);
+	m_entity_manager->DestroyEntity(entity);
+}
+
+void Registry::SetAllocationChunkSize(uint32_t alloc_chunk_size) {
+	m_component_manager->SetAllocationChunkSize(alloc_chunk_size);
 }

@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AComponentHandle.cpp" />
     <ClCompile Include="src\ComponentManager.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
     <ClCompile Include="src\Registry.cpp" />

@@ -5,9 +5,9 @@
 
 class EntityManager {
 private:
-	Entity last_entity;
-	std::queue<Entity> destroyed_entities;
-	std::unordered_map<Entity, Signature> signatures;
+	Entity m_last_entity;
+	std::queue<Entity> m_destroyed_entities;
+	std::unordered_map<Entity, Signature> m_signatures;
 public:
 	EntityManager();
 	Entity CreateEntity();

@@ -6,15 +6,17 @@
 
 class ComponentManager {
 private:
-	ComponentId last_id;
-	std::unordered_map<ComponentId, AComponentHandle*> component_handles;
+	ComponentId m_last_id;
+	std::unordered_map<ComponentId, AComponentHandle*> m_component_handles;
+	uint32_t m_alloc_chunk_size;
 
 	template<typename T>
 	ComponentHandle<T>* GetComponentHandle(ComponentId component_id);
 public:
 	ComponentManager();
 	~ComponentManager();
-	void EntityDestroyed(Entity entity);
+	void EntityDestroyed(Entity entity, Signature entity_signature);
+	void SetAllocationChunkSize(uint32_t alloc_chunk_size);
 
 	template<typename T>
 	ComponentId GetComponentId();
@@ -37,18 +39,21 @@ public:
 
 template<typename T>
 ComponentId ComponentManager::GetComponentId() {
-	static ComponentId component_id = last_id++;
+	static ComponentId component_id = m_last_id++;
 	return component_id;
 }
 
 template<typename T>
 inline ComponentHandle<T>* ComponentManager::GetComponentHandle(ComponentId component_id) {
-	return reinterpret_cast<ComponentHandle<T>*>(component_handles[component_id]);
+	return reinterpret_cast<ComponentHandle<T>*>(m_component_handles[component_id]);
 }
 
 template<typename T>
 void ComponentManager::RegisterComponent() {
-	component_handles.emplace(GetComponentId<T>(), new ComponentHandle<T>());
+	ComponentHandle<T>* component_handle = new ComponentHandle<T>(m_alloc_chunk_size);
+	component_handle->SetAllocationChunkSize(m_alloc_chunk_size);
+	m_component_handles.insert(std::make_pair(GetComponentId<T>(), component_handle));
+	//m_component_handles.emplace(GetComponentId<T>(), new ComponentHandle<T>());
 }
 
 template<typename T, typename ... Args>

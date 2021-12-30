@@ -6,17 +6,19 @@
 
 class Registry {
 private:
-	EntityManager* entity_manager;
-	ComponentManager* component_manager;
-	SystemManager* system_manager;
+	EntityManager* m_entity_manager;
+	ComponentManager* m_component_manager;
+	SystemManager* m_system_manager;
 
 	template<typename ... Args>
 	Signature CreateSystemSignature();
 public:
 	Registry();
+	Registry(uint32_t alloc_chunk_size);
 	~Registry();
 	Entity CreateEntity();
 	void DestroyEntity(Entity entity);
+	void SetAllocationChunkSize(uint32_t alloc_chunk_size);
 
 	template<typename T>
 	void RegisterComponent();
@@ -43,45 +45,45 @@ public:
 template<typename ... Args>
 Signature Registry::CreateSystemSignature() {
 	Signature signature;
-	(signature.set(component_manager->GetComponentId<Args>(), true), ...);
+	(signature.set(m_component_manager->GetComponentId<Args>(), true), ...);
 	return signature;
 }
 
 template<typename T>
 void Registry::RegisterComponent() {
-	component_manager->RegisterComponent<T>();
+	m_component_manager->RegisterComponent<T>();
 }
 
 template<typename T, typename ... Args>
 void Registry::AddComponent(Entity entity, Args&& ... args) {
-	component_manager->AddComponent<T>(entity, std::forward<decltype(args)>(args) ...);
-	entity_manager->SetSignature(entity, component_manager->GetComponentId<T>(), true);
-	system_manager->ComponentAdded(entity, entity_manager->GetSignature(entity));
+	m_component_manager->AddComponent<T>(entity, std::forward<decltype(args)>(args) ...);
+	m_entity_manager->SetSignature(entity, m_component_manager->GetComponentId<T>(), true);
+	m_system_manager->ComponentAdded(entity, m_entity_manager->GetSignature(entity));
 }
 
 template<typename T>
 void Registry::RemoveComponent(Entity entity) {
-	component_manager->RemoveComponent<T>(entity);
-	entity_manager->SetSignature(entity, component_manager->GetComponentId<T>(), false);
-	system_manager->ComponentRemoved(entity, entity_manager->GetSignature(entity));
+	m_component_manager->RemoveComponent<T>(entity);
+	m_entity_manager->SetSignature(entity, m_component_manager->GetComponentId<T>(), false);
+	m_system_manager->ComponentRemoved(entity, m_entity_manager->GetSignature(entity));
 }
 
 template<typename T>
 T* Registry::GetComponent(Entity entity) {
-	return component_manager->GetComponent<T>(entity);
+	return m_component_manager->GetComponent<T>(entity);
 }
 
 template<typename T, typename ... Args>
 void Registry::RegisterSystem() {
-	system_manager->RegisterSystem<T>(CreateSystemSignature<Args ...>());
+	m_system_manager->RegisterSystem<T>(CreateSystemSignature<Args ...>());
 }
 
 template<typename T, typename ... Args>
 void Registry::Update(Args&& ... args) {
-	system_manager->Update<T>(std::forward<decltype(args)>(args) ...);
+	m_system_manager->Update<T>(std::forward<decltype(args)>(args) ...);
 }
 
 template<typename T>
 T* Registry::GetSingleComponent(Entity entity) {
-	return component_manager->GetSingleComponent<T>(entity);
+	return m_component_manager->GetSingleComponent<T>(entity);
 }

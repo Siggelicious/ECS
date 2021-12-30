@@ -8,12 +8,12 @@ class Registry;
 
 class System {
 private:
-	Signature signature;
+	Signature m_signature;
 public:
-	std::vector<Entity> entities;
+	std::vector<Entity> m_entities;
 	System();
 	virtual ~System() = default;
-	void EntityDestroyed(Entity entity);
+	void EntityDestroyed(Entity entity, Signature entity_signature);
 	void SetSignature(Signature signature);
 	void ComponentAdded(Entity entity, Signature entity_signature);
 	void ComponentRemoved(Entity entity, Signature entity_signature);
