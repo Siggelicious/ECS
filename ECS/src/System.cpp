@@ -5,6 +5,10 @@ System::System() {
 
 }
 
+inline const std::vector<Entity>& System::GetEntities() {
+	return m_entities;
+}
+
 void System::EntityDestroyed(Entity entity) {
 	auto it = std::lower_bound(m_entities.begin(), m_entities.end(), entity);
 

@@ -4,42 +4,46 @@
 #include <EntityManager.h>
 #include <SystemManager.h>
 
+/*
+The registry ties everything together. The only class in this library that the user should be using directly
+*/
+
 class Registry {
 private:
-	EntityManager* m_entity_manager;
-	ComponentManager* m_component_manager;
-	SystemManager* m_system_manager;
+	EntityManager* m_entity_manager; //A pointer to the entity manager.
+	ComponentManager* m_component_manager; //A pointer to the component manager.
+	SystemManager* m_system_manager; //A pointer to the system manager.
 
 	template<typename ... Args>
-	Signature CreateSystemSignature();
+	Signature CreateSystemSignature(); //Creates a system signature based on the template arguments, which is any number of component types.
 public:
-	Registry();
-	Registry(uint32_t alloc_chunk_size);
-	~Registry();
-	Entity CreateEntity();
-	void DestroyEntity(Entity entity);
-	void SetAllocationChunkSize(uint32_t alloc_chunk_size);
+	Registry(); //Inits, creats the entity, component and system managers.
+	Registry(uint32_t alloc_chunk_size); //Optional constructor for setting the allocation chunk size.
+	~Registry(); //Trash cleanup.
+	Entity CreateEntity(); //> EntityManager::CreateEntity.
+	void DestroyEntity(Entity entity); //> EntityManager::DestroyEntity.
+	void SetAllocationChunkSize(uint32_t alloc_chunk_size); //>ComponentManager::SetAllocationChunkSize.
 
 	template<typename T>
-	void RegisterComponent();
+	void RegisterComponent(); //>ComponentManager::RegisterComponent.
 
 	template<typename T, typename ... Args>
-	void AddComponent(Entity entity, Args&& ... args);
+	void AddComponent(Entity entity, Args&& ... args); //>ComponentManager::AddComponent.
 
 	template<typename T>
-	void RemoveComponent(Entity entity);
+	void RemoveComponent(Entity entity); //>ComponentManager::RemoveComponent.
 
 	template<typename T>
-	T* GetComponent(Entity entity);
+	T* GetComponent(Entity entity); //>CompnentManager::GetComponent.
 
 	template<typename T>
-	T* GetSingleComponent(Entity entity);
+	T* GetSingleComponent(Entity entity); //>ComponentManager::GetSingelComponent.
 
 	template<typename T, typename ... Args>
-	void RegisterSystem();
+	void RegisterSystem(); //>SystemManager::RegisterSystem.
 
 	template<typename T, typename ... Args>
-	void Update(Args&& ... args);
+	void Update(Args&& ... args); //>SystemManager::Update
 };
 
 template<typename ... Args>
