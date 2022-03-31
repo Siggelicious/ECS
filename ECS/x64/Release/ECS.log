@@ -1,3 +1,7 @@
-﻿  ComponentManager.cpp
+﻿  AComponentHandle.cpp
+  ComponentManager.cpp
+  EntityManager.cpp
   Registry.cpp
+  System.cpp
+  SystemManager.cpp
   ECS.vcxproj -> C:\Users\sigge\source\repos\ECS\x64\Release\ECS.lib

@@ -8,7 +8,7 @@ class Registry;
 
 class System {
 private:
-	std::vector<Entity> m_entities; //A sorted vector to keep track of which entites are being operated on by a system.
+	std::vector<Entity> m_entities; //A sorted vector to keep track of which entites are being operated on by a system. //dbg
 	Signature m_signature; //The system signature, to compare against the entity signature.
 public:
 	System(); //Default.

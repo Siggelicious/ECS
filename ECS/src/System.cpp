@@ -5,7 +5,7 @@ System::System() {
 
 }
 
-inline const std::vector<Entity>& System::GetEntities() {
+const std::vector<Entity>& System::GetEntities() {
 	return m_entities;
 }
 
